@@ -98,15 +98,23 @@ public struct MorphingSheet<Content: View>: View {
                 BottomSheetShape(cornerRadius: 30, bottomExtension: 600)
                     .stroke(ColorTokens.surfaceBorder, lineWidth: 1)
             )
+            .contentShape(Rectangle())
             .elevation(.high)
             .offset(y: sheetCurrentY)
-            .gesture(
-                DragGesture()
+            .highPriorityGesture(
+                DragGesture(minimumDistance: 4, coordinateSpace: .global)
                     .onChanged { gesture in
-                        dragOffset = gesture.translation.height
+                        guard isPresented else { return }
+                        if gesture.translation.height > 0 {
+                            dragOffset = gesture.translation.height
+                        } else {
+                            dragOffset = gesture.translation.height * 0.22
+                        }
                     }
                     .onEnded { gesture in
-                        if gesture.translation.height > 90 || gesture.velocity.height > 600 {
+                        guard isPresented else { return }
+                        let shouldDismiss = gesture.translation.height > 80 || gesture.predictedEndTranslation.height > 180
+                        if shouldDismiss {
                             dismiss()
                         } else {
                             withAnimation(.spring(response: 0.32, dampingFraction: 0.82)) {
@@ -115,14 +123,20 @@ public struct MorphingSheet<Content: View>: View {
                         }
                     }
             )
+            .allowsHitTesting(isPresented)
         }
         .ignoresSafeArea(.all, edges: .bottom)
         .animation(MotionTokens.smooth, value: isPresented)
+        .onChange(of: isPresented) { _, presented in
+            if presented {
+                dragOffset = 0
+            }
+        }
     }
 
     private var sheetCurrentY: CGFloat {
         if !isPresented {
-            return 900 // Placed completely off-screen below viewport
+            return 950 // Placed completely off-screen below viewport
         }
         if dragOffset < 0 {
             return dragOffset * 0.22 // Rubber-band upward resistance

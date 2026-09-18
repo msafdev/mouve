@@ -544,18 +544,26 @@ public struct SolidBottomSheet<Content: View>: View {
                 BottomSheetShape(cornerRadius: 30, bottomExtension: 600)
                     .stroke(ColorTokens.surfaceBorder, lineWidth: 1)
             )
+            .contentShape(Rectangle())
             .elevation(.high)
-            .offset(y: !isPresented ? 900 : (dragOffset < 0 ? dragOffset * 0.22 : dragOffset))
-            .gesture(
-                DragGesture()
-                    .onChanged { gesture in dragOffset = gesture.translation.height }
+            .offset(y: !isPresented ? 950 : (dragOffset < 0 ? dragOffset * 0.22 : dragOffset))
+            .highPriorityGesture(
+                DragGesture(minimumDistance: 4, coordinateSpace: .global)
+                    .onChanged { gesture in
+                        if gesture.translation.height > 0 {
+                            dragOffset = gesture.translation.height
+                        } else {
+                            dragOffset = gesture.translation.height * 0.22
+                        }
+                    }
                     .onEnded { gesture in
-                        if gesture.translation.height > 90 || gesture.velocity.height > 600 {
+                        if gesture.translation.height > 80 || gesture.predictedEndTranslation.height > 180 {
                             isPresented = false
                         }
                         dragOffset = 0
                     }
             )
+            .allowsHitTesting(isPresented)
         }
         .ignoresSafeArea(.all, edges: .bottom)
         .animation(MotionTokens.smooth, value: isPresented)

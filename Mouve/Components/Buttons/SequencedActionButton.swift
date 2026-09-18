@@ -102,7 +102,7 @@ public struct SequencedActionButton: View {
                 }
             }
             .frame(
-                width: state == .idle ? 256 : 56,
+                width: state == .idle ? 224 : 56,
                 height: 54
             )
         }
