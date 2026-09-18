@@ -169,42 +169,72 @@ public struct PushButton3DStyle: ButtonStyle {
 
     private var faceColor: Color {
         switch style {
-        case .primary: return ColorTokens.textPrimary
-        case .accent: return ColorTokens.accent
-        case .surface: return ColorTokens.surfaceElevated
-        case .danger: return ColorTokens.danger
+        case .primary:
+            return Color(
+                light: Color(red: 0.20, green: 0.21, blue: 0.24),
+                dark: Color(red: 0.26, green: 0.27, blue: 0.30)
+            )
+        case .accent:
+            return ColorTokens.accent
+        case .surface:
+            return Color(
+                light: Color.white,
+                dark: Color(red: 0.22, green: 0.22, blue: 0.25)
+            )
+        case .danger:
+            return ColorTokens.danger
         }
     }
 
     private var faceGradientBottom: Color {
         switch style {
-        case .primary: return Color(red: 0.12, green: 0.12, blue: 0.14)
-        case .accent: return ColorTokens.accentDark
-        case .surface: return Color(red: 0.94, green: 0.94, blue: 0.96)
-        case .danger: return Color(red: 0.80, green: 0.20, blue: 0.22)
+        case .primary:
+            return Color(
+                light: Color(red: 0.12, green: 0.13, blue: 0.15),
+                dark: Color(red: 0.16, green: 0.17, blue: 0.20)
+            )
+        case .accent:
+            return ColorTokens.accentDark
+        case .surface:
+            return Color(
+                light: Color(red: 0.95, green: 0.95, blue: 0.97),
+                dark: Color(red: 0.16, green: 0.16, blue: 0.19)
+            )
+        case .danger:
+            return ColorTokens.dangerDark
         }
     }
 
     private var baseColor: Color {
         switch style {
-        case .primary: return Color.black
-        case .accent: return Color(red: 0.04, green: 0.28, blue: 0.80)
-        case .surface: return Color.black.opacity(0.22)
-        case .danger: return Color(red: 0.45, green: 0.08, blue: 0.10)
+        case .primary:
+            return Color(
+                light: Color(red: 0.06, green: 0.06, blue: 0.08),
+                dark: Color(red: 0.08, green: 0.08, blue: 0.10)
+            )
+        case .accent:
+            return ColorTokens.accentBase
+        case .surface:
+            return ColorTokens.surfaceChassis
+        case .danger:
+            return ColorTokens.dangerBase
         }
     }
 
     private var textColor: Color {
         switch style {
-        case .primary: return ColorTokens.canvasBackground
-        case .accent, .danger: return .white
-        case .surface: return ColorTokens.textPrimary
+        case .primary:
+            return Color(red: 0.96, green: 0.97, blue: 0.99)
+        case .accent, .danger:
+            return .white
+        case .surface:
+            return ColorTokens.textPrimary
         }
     }
 }
 """
         ) {
-            Tactile3DButton("Deep Press", icon: "cube.fill", style: .accent, depth: 7.0)
+            Tactile3DButton("Deep Press", icon: "cube.fill", style: .primary, depth: 7.0)
         },
         CatalogItem(
             id: "mechanical-keycaps",
@@ -549,7 +579,7 @@ private struct StatefulLatchingButtonPreview: View {
 private struct SheetDemoWindow: View {
     var body: some View {
         VStack(spacing: 16) {
-            TactileFlatButton("Open Activity Sheet", icon: "figure.tennis", style: .secondary) {
+            TactileFlatButton("Open Sheet", icon: "rectangle.stack.fill", style: .secondary) {
                 OverlayManager.shared.presentSheet {
                     ActivityConfirmationSheetContent()
                 }
@@ -563,7 +593,7 @@ private struct ActivityConfirmationSheetContent: View {
         VStack(spacing: 20) {
             // 1. Hero Graphic Badge
             SheetHeroImageBadge()
-                .padding(.top, SpacingTokens.xs)
+                .padding(.vertical, SpacingTokens.xs)
 
             // 2. Bold Headline
             Text("Activity Added\nto Your Calendar")
@@ -573,7 +603,7 @@ private struct ActivityConfirmationSheetContent: View {
                 .lineSpacing(2)
 
             // 3. Relaxed Subtitle
-            Text("Your activity has been successfully scheduled. We'll send you a reminder as the date approaches.")
+            Text("Activity has been successfully scheduled. We'll send you a reminder as the date approaches.")
                 .font(TypographyTokens.body)
                 .foregroundColor(ColorTokens.textSecondary)
                 .multilineTextAlignment(.center)

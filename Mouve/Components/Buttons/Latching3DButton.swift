@@ -51,7 +51,7 @@ public struct Latching3DButton: View {
             .offset(y: isLatched ? (depth - 1.0) : 0)
             .background(
                 RoundedRectangle(cornerRadius: ShapeTokens.buttonRadius, style: .continuous)
-                    .fill(isLatched ? ColorTokens.accentDark : Color.black.opacity(0.20))
+                    .fill(isLatched ? ColorTokens.accentBase : ColorTokens.surfaceChassis)
                     .offset(y: depth)
             )
             .elevation(isLatched ? .pressed : .low)

@@ -78,14 +78,25 @@ public enum ColorTokens {
     )
 
     // MARK: - Accents & States
-    public static let accent = Color(red: 0.24, green: 0.42, blue: 0.98)
-    public static let accentDark = Color(red: 0.16, green: 0.32, blue: 0.82)
+    public static let accent = Color(red: 0.28, green: 0.48, blue: 0.98)
+    public static let accentDark = Color(red: 0.16, green: 0.34, blue: 0.86)
+    public static let accentBase = Color(red: 0.10, green: 0.20, blue: 0.62)
+
+    public static let danger = Color(red: 0.96, green: 0.30, blue: 0.32)
+    public static let dangerDark = Color(red: 0.86, green: 0.22, blue: 0.25)
+    public static let dangerBase = Color(red: 0.68, green: 0.14, blue: 0.18)
+
     public static let success = Color(red: 0.18, green: 0.80, blue: 0.44)
     public static let warning = Color(red: 0.98, green: 0.68, blue: 0.18)
-    public static let danger = Color(red: 0.95, green: 0.26, blue: 0.28)
+
+    /// Clean tactile chassis extrusion base for light surface buttons (platinum/silver alloy)
+    public static let surfaceChassis = Color(
+        light: Color(red: 0.82, green: 0.84, blue: 0.88),
+        dark: Color(red: 0.10, green: 0.10, blue: 0.12)
+    )
 }
 
-private extension Color {
+public extension Color {
     init(light: Color, dark: Color) {
         #if canImport(UIKit)
         self.init(uiColor: UIColor { traitCollection in
@@ -101,3 +112,4 @@ private extension Color {
         #endif
     }
 }
+

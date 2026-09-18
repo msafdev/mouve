@@ -192,8 +192,8 @@ public struct SheetHeroImageBadge: View {
                 RoundedRectangle(cornerRadius: 24, style: .continuous)
                     .strokeBorder(Color.white.opacity(0.18), lineWidth: 1)
             )
-            .shadow(color: Color.black.opacity(0.18), radius: 12, x: 0, y: 6)
-            .shadow(color: Color.black.opacity(0.08), radius: 3, x: 0, y: 1)
+            .shadow(color: Color.black.opacity(0.08), radius: 6, x: 0, y: 3)
+            .shadow(color: Color.black.opacity(0.04), radius: 2, x: 0, y: 1)
     }
 }
 
@@ -211,7 +211,7 @@ public struct SheetHeroImageBadge: View {
                     .multilineTextAlignment(.center)
                     .lineSpacing(2)
 
-                Text("Your activity has been successfully scheduled. We'll send you a reminder as the date approaches.")
+                Text("Activity has been successfully scheduled. We'll send you a reminder as the date approaches.")
                     .font(TypographyTokens.body)
                     .foregroundColor(ColorTokens.textSecondary)
                     .multilineTextAlignment(.center)
