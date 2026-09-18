@@ -302,10 +302,10 @@ private struct KeycapButtonStyle: ButtonStyle {
                     )
 
                 RadialGradient(
-                    colors: [Color.black.opacity(0.04), Color.clear],
+                    colors: [Color.black.opacity(0.016), Color.clear],
                     center: .center,
                     startRadius: 0,
-                    endRadius: 22
+                    endRadius: 26
                 )
                 .clipShape(RoundedRectangle(cornerRadius: 9, style: .continuous))
 

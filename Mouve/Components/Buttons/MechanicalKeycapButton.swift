@@ -67,7 +67,12 @@ public struct KeycapButtonStyle: ButtonStyle {
         ZStack {
             // Fixed Skirt Base
             RoundedRectangle(cornerRadius: 11, style: .continuous)
-                .fill(Color(red: 0.72, green: 0.74, blue: 0.78))
+                .fill(
+                    Color(
+                        light: Color(red: 0.78, green: 0.80, blue: 0.84),
+                        dark: Color(red: 0.12, green: 0.12, blue: 0.15)
+                    )
+                )
                 .frame(width: 58, height: 50)
                 .offset(y: travel)
 
@@ -76,22 +81,35 @@ public struct KeycapButtonStyle: ButtonStyle {
                 RoundedRectangle(cornerRadius: 10, style: .continuous)
                     .fill(
                         LinearGradient(
-                            colors: [Color.white, Color(red: 0.93, green: 0.94, blue: 0.96)],
+                            colors: [
+                                Color.white,
+                                Color(red: 0.95, green: 0.955, blue: 0.97)
+                            ],
                             startPoint: .top,
                             endPoint: .bottom
                         )
                     )
                     .overlay(
                         RoundedRectangle(cornerRadius: 10, style: .continuous)
-                            .strokeBorder(Color.black.opacity(0.10), lineWidth: 1)
+                            .strokeBorder(
+                                LinearGradient(
+                                    colors: [
+                                        Color.white.opacity(0.85),
+                                        Color.black.opacity(0.065)
+                                    ],
+                                    startPoint: .top,
+                                    endPoint: .bottom
+                                ),
+                                lineWidth: 1
+                            )
                     )
 
-                // Concave Dish
+                // Softened Concave Dish (Subtle physical depression without heavy dark burn)
                 RadialGradient(
-                    colors: [Color.black.opacity(0.04), Color.clear],
+                    colors: [Color.black.opacity(0.016), Color.clear],
                     center: .center,
                     startRadius: 0,
-                    endRadius: 22
+                    endRadius: 26
                 )
                 .clipShape(RoundedRectangle(cornerRadius: 9, style: .continuous))
 
