@@ -142,9 +142,9 @@ public struct ComponentDetailView: View {
     // MARK: - Swift Code Viewer & Copy Button (Shadcn-style Monotone)
     private var codeSnippetSection: some View {
         let isDark = effectiveColorScheme == .dark
-        let codeEditorBg = isDark ? Color(red: 0.08, green: 0.08, blue: 0.09) : Color(red: 0.965, green: 0.968, blue: 0.975)
-        let codeEditorBorder = isDark ? Color.white.opacity(0.08) : Color.black.opacity(0.06)
-        let actionBtnBg = isDark ? Color(red: 0.11, green: 0.11, blue: 0.13) : Color(red: 0.93, green: 0.935, blue: 0.945)
+        let codeEditorBg = ColorTokens.surface
+        let codeEditorBorder = ColorTokens.surfaceBorder
+        let actionBtnBg = ColorTokens.chipUnselectedBackground
 
         return VStack(alignment: .leading, spacing: SpacingTokens.sm) {
             HStack {
@@ -180,7 +180,7 @@ public struct ComponentDetailView: View {
                 .buttonStyle(.plain)
             }
 
-            // Shadcn-Style Clean Monotone Code Container with Expandable Height
+            // Clean Monotone Code Container with Expandable Height
             VStack(spacing: 0) {
                 ZStack(alignment: .bottom) {
                     ScrollView(.horizontal, showsIndicators: isCodeExpanded) {
@@ -226,7 +226,7 @@ public struct ComponentDetailView: View {
                         Image(systemName: isCodeExpanded ? "chevron.up" : "chevron.down")
                             .font(.system(size: 10, weight: .bold))
                     }
-                    .foregroundColor(isDark ? Color.white.opacity(0.85) : Color.black.opacity(0.80))
+                    .foregroundColor(ColorTokens.textPrimary.opacity(0.85))
                     .frame(maxWidth: .infinity)
                     .padding(.vertical, 10)
                     .background(actionBtnBg)
