@@ -340,11 +340,18 @@ import SwiftUI
 public struct Latching3DSwitch: View {
     @Binding private var isLatched: Bool
     private let title: String
-    private let icon: String
+    private let latchedIcon: String
+    private let unlatchedIcon: String
 
-    public init(_ title: String, icon: String, isLatched: Binding<Bool>) {
+    public init(
+        _ title: String,
+        icon: String = "lock.fill",
+        unlatchedIcon: String = "lock.open.fill",
+        isLatched: Binding<Bool>
+    ) {
         self.title = title
-        self.icon = icon
+        self.latchedIcon = icon
+        self.unlatchedIcon = unlatchedIcon
         self._isLatched = isLatched
     }
 
@@ -353,13 +360,35 @@ public struct Latching3DSwitch: View {
 
         Button(action: {
             HapticEngine.selection()
-            withAnimation(.spring(response: 0.28, dampingFraction: 0.72)) {
+            withAnimation(.spring(response: 0.30, dampingFraction: 0.75)) {
                 isLatched.toggle()
             }
         }) {
             HStack(spacing: SpacingTokens.xs) {
-                Image(systemName: icon)
-                    .font(.system(size: 15, weight: .bold))
+                ZStack {
+                    if isLatched {
+                        Image(systemName: latchedIcon)
+                            .font(.system(size: 15, weight: .bold))
+                            .transition(
+                                .asymmetric(
+                                    insertion: .offset(y: 14).combined(with: .opacity),
+                                    removal: .offset(y: 14).combined(with: .opacity)
+                                )
+                            )
+                    } else {
+                        Image(systemName: unlatchedIcon)
+                            .font(.system(size: 15, weight: .bold))
+                            .transition(
+                                .asymmetric(
+                                    insertion: .offset(y: -14).combined(with: .opacity),
+                                    removal: .offset(y: -14).combined(with: .opacity)
+                                )
+                            )
+                    }
+                }
+                .frame(width: 18, height: 18)
+                .clipped()
+
                 Text(title)
                     .font(TypographyTokens.componentTitle)
             }
@@ -380,11 +409,12 @@ public struct Latching3DSwitch: View {
             .offset(y: isLatched ? (depth - 1.0) : 0)
             .background(
                 RoundedRectangle(cornerRadius: ShapeTokens.buttonRadius, style: .continuous)
-                    .fill(isLatched ? ColorTokens.accentDark : Color.black.opacity(0.20))
+                    .fill(isLatched ? ColorTokens.accentBase : ColorTokens.surfaceChassis)
                     .offset(y: depth)
             )
             .elevation(isLatched ? .pressed : .low)
             .scaleEffect(isLatched ? 0.985 : 1.0)
+            .animation(.spring(response: 0.30, dampingFraction: 0.75), value: isLatched)
         }
         .buttonStyle(.plain)
     }
@@ -580,7 +610,7 @@ public struct SolidBottomSheet<Content: View>: View {
 private struct StatefulLatchingButtonPreview: View {
     @State private var isLatched = false
     var body: some View {
-        Latching3DButton("Engage Lock", icon: isLatched ? "lock.fill" : "lock.open.fill", isLatched: $isLatched)
+        Latching3DButton("Engage Lock", isLatched: $isLatched)
     }
 }
 

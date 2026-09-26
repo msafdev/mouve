@@ -70,8 +70,12 @@ public struct KeycapButtonStyle: ButtonStyle {
                 .fill(
                     Color(
                         light: Color(red: 0.78, green: 0.80, blue: 0.84),
-                        dark: Color(red: 0.12, green: 0.12, blue: 0.15)
+                        dark: Color(red: 0.64, green: 0.66, blue: 0.72)
                     )
+                )
+                .overlay(
+                    RoundedRectangle(cornerRadius: 11, style: .continuous)
+                        .strokeBorder(Color.black.opacity(0.12), lineWidth: 0.8)
                 )
                 .frame(width: 58, height: 50)
                 .offset(y: travel)
